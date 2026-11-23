@@ -1,0 +1,49 @@
+my kinda write up
+1. summarize and understanding the hints:
+```
+Text-book vulnerability - I hope you can grab this easy challenge without AI.
+This challenges ALLOWS scanning!
+```
+
+```
+File Manager
+
+Inside uploads/, there is this file that I forgot to tell you:
+<FilesMatch "\.ph.*$">
+    Require all denied
+</FilesMatch>
+
+
+Good luck!
+```
+
+```
+Flag for File Manager is at /var/www/flag1.txt
+```
+
+```
+Hãy fuzzing kĩ hơn, maybe có thể ra gì đó
+```
+
+2. core functions of the website:
+	- uploading files: it is safeguard and no .php files can be upload
+	- downloading/deleting/renaming uploaded files
+	- check name if anything files have the same name
+
+3. the routes
+hints are pretty clear here. i guess i have to scanning what routes there are. 
+then i know the keyword fuzzing and found a tool for that ffuf. the thing left is a word list to fuzz.
+routes knew so far: /index.php; /uploads; /upload.php("file type not allowed", appear when attempts to upload .php or .PHP or anything like that); ; /exists.php?file=abc(response back with a simple json file {"file":"abc","exists":false}); /download.php?id=a1fe58ea (happens whenever i tried to click download); /uploads/new.txt (when i clicked download a uploaded file, seems to be called when /download.php?id=0d626dfe happens); /delete.php (POST request to this to delete a uploaded file, the body of the request is id=0d626dfe the id of the file); /rename.php (the body is id=a1fe58ea&to=no.py, interesting thing is on the index.php it doesnt change the name, but download the file and the name is changed)
+i found some of the routes are 403. one of them is /uploads
+
+4. the structure
+bc currently it is considered blackbox, i cant have the web source code so i read through the request and response to find that this website use nginx as the "router" and apache as the server (the hints also give me that code, i think that is the config file of apache)
+the questions arise: where are these .php files stored at? (sometimes i see /sth.php?id=... (seems like they stores my uploaded files by id), that shows these files exist for some reasons), what are these files do? how the whole structure comes together (what is the work/data flow here?) how the routes are made? 
+
+5. the exploit
+the hints give it away "Flag for File Manager is at /var/www/flag1.txt" which probly mean i have to path traversal or rce to get the file. the file upload means i can upload some .php files with code to run to get to the flag.
+just not sure how to do that. 
+also fuzzing maybe in this one also means i have to guess where is the flag by bruteforce. that maybe also the reason why they give me this function of checking if the file name existed.
+
+
+ 

