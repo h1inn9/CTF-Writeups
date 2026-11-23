@@ -1,0 +1,63 @@
+# ---- Extensions that DO NOT contain ".ph" (pass the FilesMatch regex) ----
+.hphp
+.pgif
+.inc
+.ctp
+.module
+.shtml
+.stm
+.shtm
+.shtmll
+.phtm
+.pht
+.pht5
+.phtm5
+.phtml5
+.pht7
+.phtm7
+.php5s
+.php7s
+.php8s
+.phP8
+.Php8
+.pHp8
+.PHP8
+# ---- Double extensions where the trailing extension is unknown/ignored ----
+.php.xyz
+.php5.xyz
+.php7.xyz
+.phtml.xyz
+.phar.xyz
+.php.jpg.xyz
+.phtml.jpg.xyz
+# ---- Special characters (URL-encoded in the body) ----
+.php%0a
+.php%0d%0a
+.php%00.jpg
+.php%00.txt
+.php%00.png
+.php%20
+.php%2e
+.php.
+.php..
+.php...
+.php::$DATA
+.php#.jpg
+.php?.jpg
+.php=.jpg
+# ---- .htaccess (the ultimate bypass if you can write it) ----
+.htaccess
+.htaccess.txt
+htaccess
+# ---- Case variants (if upload.php is case-sensitive but Apache isn't) ----
+.PHP
+.Php
+.pHp
+.pHP
+.PHp
+.PHTML
+.PHT
+.PhAr
+.PhP5
+.PhP7
+.PhP8
